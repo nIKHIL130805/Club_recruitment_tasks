@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import useDebounce from "../hooks/useDebounce";
 
 function SearchBar({ onSearch }) {
   const [org, setOrg] = useState("");
+  const debouncedOrg = useDebounce(org, 500);
 
-  const handleSearch = () => {
-    if (!org.trim()) return;
-    onSearch(org.trim());
-  };
+  useEffect(() => {
+    if (debouncedOrg.trim()) {
+      onSearch(debouncedOrg.trim());
+    }
+  }, [debouncedOrg, onSearch]);
 
   return (
     <div>
@@ -16,7 +19,6 @@ function SearchBar({ onSearch }) {
         value={org}
         onChange={(e) => setOrg(e.target.value)}
       />
-      <button onClick={handleSearch}>Search</button>
     </div>
   );
 }
