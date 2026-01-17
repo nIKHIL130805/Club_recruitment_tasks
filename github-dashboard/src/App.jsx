@@ -25,14 +25,14 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="app">
       <h1>GitHub Organization Dashboard</h1>
 
       <SearchBar onSearch={handleSearch} />
 
       {loading && <p>Loading repositories...</p>}
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="error">{error}</p>}
 
       {!loading && !error && hasSearched && repos.length === 0 && (
         <p>No repositories found.</p>
